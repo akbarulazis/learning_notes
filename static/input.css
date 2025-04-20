@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@layer components {
+  .btn-sky {
+    @apply py-2 px-4 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply py-2 px-4 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500  transition-colors duration-200;
+  }
+
+  .form-input {
+    @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6;
+  }
+
+  .sidebar-link {
+    @apply flex items-center py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-sky-100 dark:hover:bg-sky-900 rounded-md transition-colors duration-200;
+  }
+
+  .sidebar-link-active {
+    @apply flex items-center py-2 px-4 bg-sky-600 text-white rounded-md;
+  }
+}

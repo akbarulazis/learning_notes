@@ -1,0 +1,98 @@
+<!-- templates/notes/note_detail.html -->
+{% extends 'base.html' %} {% block title %}{{ note.title }} - Learning Notes
+{%endblock%} {% block content %}
+<div class="flex">
+  <!-- Sidebar -->
+  <div class="w-64 bg-white dark:bg-gray-800 h-screen fixed shadow-md">
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+        {{ user.username }}'s Notes
+      </h2>
+    </div>
+    <nav class="mt-4 px-2">
+      <a href="{% url 'dashboard' %}" class="sidebar-link-active mb-2">
+        <i class="fas fa-home mr-2"></i> Dashboard
+      </a>
+      <a href="{% url 'note_list' %}" class="sidebar-link mb-2">
+        <i class="fas fa-list mr-2"></i> All Notes
+      </a>
+      <a href="{% url 'note_create' %}" class="sidebar-link mb-2">
+        <i class="fas fa-plus mr-2"></i> Create Note
+      </a>
+
+      <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+      <a
+        href="{% url 'logout' %}"
+        class="sidebar-link mb-2 text-red-500 hover:text-red-700"
+      >
+        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+      </a>
+    </nav>
+  </div>
+  <!-- Main Content -->
+  <div class="ml-64 flex-1 p-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Note Header -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+            {{ note.title }}
+          </h1>
+          <div class="flex">
+            <a
+              href="{% url 'note_edit' note.slug %}"
+              class="btn-secondary mr-3"
+            >
+              <i class="fas fa-edit mr-1"></i> Edit
+            </a>
+            <a
+              href="{% url 'note_delete' note.slug %}"
+              class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75 transition-colors duration-200"
+            >
+              <i class="fas fa-trash mr-1"></i> Delete
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4"
+        >
+          <span class="mr-4">
+            <i class="fas fa-user mr-1"></i> {{ note.author.username }}
+          </span>
+          <span class="mr-4">
+            <i class="fas fa-calendar mr-1"></i> Created:
+            {{note.created_at|date:"h:m F d, Y"}}
+          </span>
+          <span class="mr-4">
+            <i class="fas fa-clock mr-1"></i> Updated:
+            {{note.updated_at|date:"h:m F d, Y"}}
+          </span>
+          <span
+            class="px-2 py-1 text-xs rounded-full {% if note.status == 'published' %} bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 {% else %} bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 {% endif %}"
+          >
+            {{ note.get_status_display }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Note Content -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div class="prose prose-primary dark:prose-invert max-w-none">
+          {{ note.content|linebreaks }}
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-6 flex justify-between">
+        <a
+          href="{% url 'note_list' %}"
+          class="text-primary-700 dark:text-primary-400 hover:underline"
+        >
+          <i class="fas fa-arrow-left mr-1"></i> Back to all notes
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
